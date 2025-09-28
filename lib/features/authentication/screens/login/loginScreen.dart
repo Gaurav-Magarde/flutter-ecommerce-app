@@ -24,7 +24,12 @@ class LoginScreen extends StatelessWidget {
 
               FormLoginScreen(),
 
+              SizedBox(height: TSizes.spaceBtwItems,),
+
+
               dividerLoginOrSignIn(dividerText: TTexts.orSignInWith,),
+
+              SizedBox(height: TSizes.spaceBtwItems,),
 
               googleSignUpImages(),
 

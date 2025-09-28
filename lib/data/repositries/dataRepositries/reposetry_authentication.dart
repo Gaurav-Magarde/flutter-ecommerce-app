@@ -64,6 +64,7 @@ class AuthenticationRepository extends GetxController {
       final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
 
 
+
       final GoogleSignInAuthentication? googleAuth = await userAccount?.authentication;
 
 

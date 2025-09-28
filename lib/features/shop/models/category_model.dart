@@ -19,7 +19,7 @@ class CategoryModel {
 
   ///empty helper function
   static CategoryModel get empty =>
-      CategoryModel(id: "", name: "", parentId: "", image: "", featured: false);
+      CategoryModel(id: "1", name: "", parentId: "", image: "", featured: false);
 
 
   ///Convert to Json and send the data

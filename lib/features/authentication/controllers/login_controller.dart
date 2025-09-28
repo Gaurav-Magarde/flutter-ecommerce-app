@@ -76,24 +76,30 @@
 
     Future<void> signInWithGoogle() async {
       try{
-        // Loader shuru karein
+        // Loader start
         TFullScreenLoader.openLoadingDialog(
           "Logging you in...",
           "assets/images/animations/141594-animation-of-docer.json"
         );
 
-        // Internet connection check karein
+        // Internet connection check
         final isConnected = await NetworkManager.instance.isConnected();
         if (!isConnected) {
           TFullScreenLoader.stopLoading();
           return;
         }
 
-        TFullScreenLoader.stopLoading();
 
         final userCredential = await AuthenticationRepository.instance.signInWithGoogle();
         Get.put(UserController());
 
+        // if not selected any gmail
+        if(userCredential.user == null){
+          TFullScreenLoader.stopLoading();
+          TLoaders.warningSnackBar(title: "SignIn failed",message: "google sign in failed ! please try again");
+          return;
+
+        }
         await UserController.instance.saveUserRecord(userCredential);
 
 

@@ -21,12 +21,24 @@ class UserProfileTile extends StatelessWidget {
           return Center();
     }),
         ListTile(
-          leading: CircularImage(
-            imageURL: controller.user.value.profilePicture,
-            height: 50,
-            width: 50,
-            padding: EdgeInsets.zero,
-            imageColor: null,
+          leading: Obx(()
+            =>  controller.user.value.profilePicture == '' ?
+                Container(
+                  height: 50,
+                  width: 50,
+                  decoration:BoxDecoration(),
+                  child: Image.asset("assets/images/content/user.png"
+                  ),
+                )
+
+                :CircularImage(
+              imageURL: controller.user.value.profilePicture,
+              height: 50,
+              width: 50,
+              padding: EdgeInsets.zero,
+              borderRadius: 100,
+              imageColor: null,
+            ),
           ),
           title: Text(
             controller.user.value.fullName,

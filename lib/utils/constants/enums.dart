@@ -10,5 +10,5 @@ enum TextSizes { small, medium, large }
 
 enum OrderStatus { processing, shipped, delivered, cancelled, returned }
 
-enum PaymentMethods { paypal,   razorPay, upi, cashOnDelivery  }
+enum PaymentMethods { upi, payOnDelivery  }
 

@@ -22,7 +22,16 @@ class OrderListItem extends StatelessWidget {
     controller.fetchOrders();
     final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
-      appBar: TAppBar(title: Text("MY Orders"), showBackArrow: true),
+      appBar:  AppBar(
+      automaticallyImplyLeading: false,
+      leading: IconButton(onPressed: (){
+        Get.back();
+
+      }, icon: Icon(Icons.arrow_back,color: TColors.white,)),
+
+      backgroundColor: TColors.primary,
+      title: Text("My Orders",style: TextStyle(color: TColors.white),),
+    ),
       body: Padding(
         padding: const EdgeInsets.all(TSizes.defaultSpace),
         child: Obx(() {

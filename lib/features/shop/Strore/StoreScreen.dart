@@ -2,8 +2,6 @@ import 'package:clone_shopping/utils/constants/colors.dart';
 import 'package:clone_shopping/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../../common/widgets/BrandCard/BrandCard.dart';
 import '../../../common/widgets/appbar/customAppBar.dart';
 import '../../../common/widgets/container/SearchContainer.dart';
@@ -98,7 +96,7 @@ class StoreScreen extends StatelessWidget {
                     Tab(child: Text("Sports")),
                     Tab(child: Text("Furniture")),
                     Tab(child: Text("Electronics")),
-                    Tab(child: Text("clothes")),
+                    Tab(child: Text("Clothes")),
                     Tab(child: Text("Cosmetics")),
                   ],
                 ),

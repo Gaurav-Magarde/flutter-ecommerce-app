@@ -14,6 +14,9 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../shop/Cart/cart_screen.dart';
 import '../../../shop/Orders/Widgets/order_list_item.dart';
 import '../Address/address_screen.dart';
+import '../widgets/bank_accouont.dart';
+import '../widgets/coupons_screen.dart';
+import '../widgets/notification_screen.dart';
 import 'LoadData/load_data_screen.dart';
 import 'SettingMenuTile.dart';
 
@@ -81,54 +84,58 @@ class SettingScreen extends StatelessWidget {
                     title: "Bank Account",
                     subTitle: "Withdraw balance to registered bank account",
                     leadingIcon: Iconsax.bank,
+                    onTap: (){
+                      Get.to(() => BankAccount());
+                    }
                   ),
                   SettingMenuTile(
                     title: "My Coupons",
                     subTitle: "List of all the discounted coupons",
                     leadingIcon: Iconsax.discount_shape,
+                    onTap: (){
+                      Get.to(()=>const CouponsScreen());
+                    }
                   ),
                   SettingMenuTile(
                     title: "Notifications",
                     subTitle: "Set any kind of notification message",
                     leadingIcon: Iconsax.notification,
+                    onTap: (){
+                      Get.to(()=>const NotificationScreen());
+                    }
                   ),
-                  SettingMenuTile(
-                    title: "Account Privacy",
-                    subTitle: "Manage data usage and connected accounts",
-                    leadingIcon: Iconsax.security_card,
-                  ),
-
                   SizedBox(height: TSizes.spaceBtwSections),
                   SectionHeading(
                     title: "App Setting",
                     textColor: dark ? Colors.white : TColors.darkGrey,
                   ),
                   const SizedBox(height: TSizes.spaceBtwItems),
-                  SettingMenuTile(
-                    title: "Load Data",
-                    subTitle: "Upload Data to your cloud Firebase",
-                    leadingIcon: Iconsax.document_upload,
-                    onTap: (){
-                      Get.to(()=>const LoadDataScreen());
-                    },
-                  ),
+
+                  // SettingMenuTile(
+                  //   title: "Load Data",
+                  //   subTitle: "Upload Data to your cloud Firebase",
+                  //   leadingIcon: Iconsax.document_upload,
+                  //   onTap: (){
+                  //     Get.to(()=>const LoadDataScreen());
+                  //   },
+                  // ),
                   SettingMenuTile(
                     title: "Geolocation",
-                    subTitle: "Set recommendation based on location",
+                    subTitle: "Coming soon...",
                     leadingIcon: Iconsax.location,
-                    trailing: Switch(value: true, onChanged: (value) {}),
+                    trailing: Switch(value: false, onChanged: (value) {}),
                   ),
 
                   SettingMenuTile(
                     title: "Safe Mode",
-                    subTitle: "Search result is safe for all ages",
+                    subTitle: "Coming soon...",
                     leadingIcon: Iconsax.security_user,
                     trailing: Switch(value: false, onChanged: (value) {}),
                   ),
 
                   SettingMenuTile(
                     title: "HD Image Quality",
-                    subTitle: "Set image quality to be seen",
+                    subTitle: "Coming soon...",
                     leadingIcon: Iconsax.image,
                     trailing: Switch(value: false, onChanged: (value) {}),
                   ),

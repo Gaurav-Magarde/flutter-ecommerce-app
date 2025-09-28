@@ -1,7 +1,11 @@
 import 'package:clone_shopping/features/personalization/Screens/Address/Models/address_model.dart';
 import 'package:clone_shopping/features/personalization/Screens/Address/Repository/addresses_repository.dart';
+import 'package:clone_shopping/utils/popups/loaders.dart';
 import 'package:get/get.dart';
 
+import '../../../../common/widgets/successScreen/successScreen.dart';
+import '../../../../utils/constants/image_strings.dart';
+import '../../home/HomeScreen.dart';
 import '../../models/cart_model/CartModel.dart';
 
 class CheckoutController extends GetxController {
@@ -48,5 +52,26 @@ class CheckoutController extends GetxController {
     discount.value = subTotal.value - salePrice.value + couponDiscount.value;
     total.value = subTotal.value - discount.value + shippingFee.value;
     return total.value;
+  }
+  
+  void checkOut( {required AddressModel? address, required int totalItem}){
+      
+        if(address == null){
+          TLoaders.warningSnackBar(title: "Empty Address",message: "Please add delivery address before checkout ");
+          return;
+        }
+        if(totalItem < 1){
+          TLoaders.warningSnackBar(title: "Empty cart",message: "Please select items to buy before checkout ");
+          return;
+        }
+        Get.to(
+          SuccessScreen(
+            image: TImages.successfulPaymentIcon,
+            title: "Payment Successful",
+            subTitle: "ThankYou for shopping products .keep buying",
+            onPressed: () => Get.to(const HomeScreen()),
+          ),
+        );
+    
   }
 }

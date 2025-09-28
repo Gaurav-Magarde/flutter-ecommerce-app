@@ -1,6 +1,9 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
+import '../../../features/shop/controllers/brand_controller.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
@@ -18,6 +21,7 @@ class TBrandShowCase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final  controller  = Get.put(BrandController());
     return TRoundedContainer(
       showBorder: true,
       borderColor: TColors.darkGrey,

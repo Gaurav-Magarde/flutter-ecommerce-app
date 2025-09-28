@@ -1,18 +1,17 @@
 import 'package:clone_shopping/common/widgets/appbar/customAppBar.dart';
 import 'package:clone_shopping/common/widgets/container/RoundedContainer.dart';
-import 'package:clone_shopping/common/widgets/successScreen/successScreen.dart';
 import 'package:clone_shopping/features/personalization/Screens/Address/address_screen.dart';
-import 'package:clone_shopping/features/shop/home/HomeScreen.dart';
-import 'package:clone_shopping/utils/constants/image_strings.dart';
 import 'package:clone_shopping/utils/constants/sizes.dart';
 import 'package:clone_shopping/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/enums.dart';
 import '../Cart/CuponCodeField.dart';
 import '../Cart/cart_item.dart';
 import 'Controller/chckout_controller.dart';
+import 'Controller/paymen_controller.dart';
 import 'Widgets/BillingAmount.dart';
 import 'Widgets/BillingPaymentSection.dart';
 import 'Widgets/billing_address_section.dart';
@@ -24,8 +23,9 @@ class CheckOutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     final controller = Get.put(CheckoutController());
+    final paymentController = Get.put(PaymentController());
     return Scaffold(
-      appBar: TAppBar(title: Text("Orders"), showBackArrow: true),
+      appBar: TAppBar(title: Text("checkout"), showBackArrow: true),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -90,15 +90,13 @@ class CheckOutScreen extends StatelessWidget {
           vertical: TSizes.defaultSpace / 2,
         ),
         child: ElevatedButton(
-          onPressed: () => Get.to(
-            SuccessScreen(
-              image: TImages.successfulPaymentIcon,
-              title: "Payment Successful",
-              subTitle: "ThankYou for shopping products .keep buying",
-              onPressed: () => Get.to(const HomeScreen()),
+          style: ElevatedButton.styleFrom(
             ),
-          ),
-          child: Text("Proceed to Payment"),
+          onPressed: ( ){
+
+            controller.checkOut(address: controller.selectedDeliveryAddress.value,totalItem: controller.selectedCartItems.length);
+          },
+          child: Text("Proceed to order"),
         ),
       ),
     );

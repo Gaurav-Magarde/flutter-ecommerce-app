@@ -1,5 +1,3 @@
-import 'package:clone_shopping/data/repositries/dataRepositries/reposetry_authentication.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -25,30 +23,12 @@ class googleSignUpImages extends StatelessWidget {
           ),
           child: IconButton(
             onPressed: () {
-              if(kDebugMode){
-                print("signInGoogle");
-              }
               controller.signInWithGoogle();
             },
             icon: Image(
               height: TSizes.iconMd,
               width: TSizes.iconMd,
               image: AssetImage("assets/logos/google-icon.png"),
-            ),
-          ),
-        ),
-        const SizedBox(width: TSizes.spaceBtwItems,),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(color: TColors.grey),
-          ),
-          child: IconButton(
-            onPressed: () {},
-            icon: Image(
-              height: TSizes.iconMd,
-              width: TSizes.iconMd,
-              image: AssetImage("assets/logos/facebook-icon.png"),
             ),
           ),
         ),
