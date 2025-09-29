@@ -90,11 +90,14 @@ class CheckOutScreen extends StatelessWidget {
           vertical: TSizes.defaultSpace / 2,
         ),
         child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            ),
-          onPressed: ( ){
-
-            controller.checkOut(address: controller.selectedDeliveryAddress.value,totalItem: controller.selectedCartItems.length);
+          style: ElevatedButton.styleFrom(),
+          onPressed: () {
+            controller.checkOut(
+              address: controller.selectedDeliveryAddress.value,
+              totalItem: controller.selectedCartItems.length,
+              selectedPaymentMethod:
+                  paymentController.selectedPaymentMethod.value,
+            );
           },
           child: Text("Proceed to order"),
         ),

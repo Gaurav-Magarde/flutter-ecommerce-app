@@ -1,4 +1,7 @@
+import 'package:clone_shopping/features/shop/Orders/Widgets/order_status_helper.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import '../../../../utils/constants/enums.dart';
 import '../OrderModel/order_model.dart';
 import 'package:clone_shopping/utils/popups/loaders.dart';
 
@@ -49,6 +52,23 @@ class OrderController extends GetxController {
     finally{
       isLoading.value = false;
 
+    }
+  }
+
+  OrderStatus getOrderStatus(String status){
+    switch(status){
+      case "shipped":
+        return OrderStatus.shipped;
+      case "processing":
+        return OrderStatus.processing;
+      case "delivered":
+        return OrderStatus.delivered;
+      case "cancelled":
+        return OrderStatus.cancelled;
+      case "returned":
+        return OrderStatus.returned;
+      default:
+        return OrderStatus.processing;
     }
   }
 }

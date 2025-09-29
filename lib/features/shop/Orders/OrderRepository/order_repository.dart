@@ -16,7 +16,8 @@ class OrderRepository{
           .collection("users")
           .doc(AuthenticationRepository.instance.user?.uid)
           .collection("orders");
-     await path.doc(order.orderId).set(order.toJson());
+      final completeOrder = order.toJson();
+     await path.doc(order.orderId).set(completeOrder);
 
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code);
@@ -31,7 +32,7 @@ class OrderRepository{
     }
     // Catch any other unexpected errors.
     catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw 'Something went wrong. Please t r y again';
     }
   }
 
