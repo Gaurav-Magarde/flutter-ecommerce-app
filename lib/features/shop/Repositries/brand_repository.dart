@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -42,6 +43,7 @@ class BrandRepository extends GetxController {
 
   Future<List<BrandModel>> fetchBrandsForCategory(String categoryId) async {
     try {
+      if(kDebugMode) print("reached");
       final querySnapshot = await FirebaseFirestore.instance
           .collection("BrandCategories")
             .where("categoryId", isEqualTo: categoryId)

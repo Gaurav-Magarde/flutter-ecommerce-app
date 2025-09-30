@@ -5,7 +5,8 @@ import '../../../personalization/Screens/Address/Models/address_model.dart';
 import '../OrderItemModel/ItemModel.dart';
 
 class OrderModel {
-  OrderModel({
+  OrderModel( {
+    this.transactionId,
     required this.items,
     required this.discount,
     required this.shippingFee,
@@ -27,9 +28,11 @@ class OrderModel {
   final AddressModel deliveryAddress;
   final List<ItemModel> items;
   final String deliveryDate;
+  final String? transactionId;
 
   Map<String, dynamic> toJson(){
     final map = {
+      transactionId ?? "TransactionId": transactionId,
       "OrderId": orderId,
       "OrderStatus": orderStatus.name.toString(),
       "OrderDate": orderDate,
@@ -46,6 +49,7 @@ class OrderModel {
   factory OrderModel.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic> ;
     return OrderModel(
+      transactionId: data['TransactionId'] ?? "",
       orderId: data['OrderId'] ?? "",
       orderStatus: OrderController.instance.getOrderStatus(data['OrderStatus']),
       orderDate: data['OrderDate'] ?? "",

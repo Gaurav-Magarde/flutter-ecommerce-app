@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
@@ -55,6 +56,8 @@ class BrandController extends GetxController{
     } catch(e) {
       TLoaders.errorSnackBar(title: "oh snap",message: e.toString());
       return [];
+    }finally{
+      isLoading.value = false;
     }
   }
 
@@ -65,8 +68,12 @@ class BrandController extends GetxController{
       final list = await controller.fetchProductsForBrand(brandId: brandId,limit:  limit );
       return list;
     }catch(e){
-      TLoaders.errorSnackBar(title: "oh snap",message: e.toString());
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      });
       return [];
+    }finally{
+      isLoading.value = false;
     }
   }
 }

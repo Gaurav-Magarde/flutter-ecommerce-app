@@ -15,6 +15,24 @@ class PaymentController extends GetxController{
 
   static PaymentController get instance => Get.find<PaymentController>();
 
+  final _razorpay = Razorpay();
+
+  @override
+  void onInit() {
+    super.onInit();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+
+  @override
+  void onClose() {
+    _razorpay.clear();
+    super.onClose();
+
+  }
+
   Rx<PaymentMethods> selectedPaymentMethod = PaymentMethods.upi.obs;
 
   void changePaymentMethod(PaymentMethods method){
@@ -41,7 +59,6 @@ class PaymentController extends GetxController{
 
   void completePayment(int amount){
     try{
-      final razorpay = Razorpay();
       UserModel user = Get.find<UserController>().user.value;
       final options = {
         "key " : "",
@@ -49,6 +66,7 @@ class PaymentController extends GetxController{
         "name" : "Tappit",
         "description" : "credit purchase",
         "prefill" : {
+
           "contact" : user.phoneNumber,
           "email" : user.email,
         },
@@ -57,11 +75,9 @@ class PaymentController extends GetxController{
         }
       };
 
-      razorpay.open(options);
+      _razorpay.open(options);
 
-      razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-      razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-      razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+
 
     }catch(e){
       TLoaders.errorSnackBar(title: "Oh Snap",message: e.toString());
@@ -75,7 +91,7 @@ class PaymentController extends GetxController{
           final signature = response.signature;
          final controller = Get.put(CheckoutController());
 
-          await controller.placeOrder(orderId!);
+          await controller.placeOrder(orderId!,paymentId!);
 
 
       }catch(e){

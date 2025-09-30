@@ -5,6 +5,7 @@ import 'package:clone_shopping/features/shop/checkout/Controller/paymen_controll
 import 'package:clone_shopping/utils/constants/enums.dart';
 import 'package:clone_shopping/utils/popups/loaders.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../common/widgets/successScreen/successScreen.dart';
 import '../../../../utils/constants/image_strings.dart';
@@ -71,28 +72,32 @@ class CheckoutController extends GetxController {
       return;
     }
     if(selectedPaymentMethod == PaymentMethods.payOnDelivery){
-
-      placeOrder("12321231");
+      String orderId = DateTime.now().millisecondsSinceEpoch.toString();
+      placeOrder(orderId,null);
 
     }else{
           Get.find<PaymentController>().completePayment(total.value);
     }
   }
 
-  Future<void> placeOrder(String orderId) async {
+  Future<void> placeOrder(String orderId,String ? paymentId) async {
     try{
       final orderRepository = Get.put(OrderRepository());
       final List<ItemModel> items = selectedCartItems
           .map(
-            (Item) => ItemModel(
-          price: Item.price.toInt(),
-          quantity: Item.quantity,
-          productId: Item.productId,
-          title: Item.title,
-          image: Item.image,
+            (item) => ItemModel(
+          price: item.price.toInt(),
+          quantity: item.quantity,
+          productId: item.productId,
+          title: item.title,
+          image: item.image,
         ),
       )
           .toList();
+
+      var format = DateFormat('dd MMM yyyy');
+
+      var date = format.format(DateTime.now());
       final order = OrderModel(
         items: items,
         discount: discount.value,
@@ -101,12 +106,11 @@ class CheckoutController extends GetxController {
         totalItemsPrice: total.value,
         orderId: orderId,
         orderStatus: OrderStatus.shipped,
-        orderDate: DateTime.now().toString(),
+        orderDate: date,
         deliveryDate: DateTime.timestamp().toString(),
 
 
       );
-      print("here");
       await orderRepository.placeOrder(order);
       Get.to(
         SuccessScreen(

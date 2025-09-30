@@ -1,4 +1,5 @@
 import 'package:clone_shopping/features/shop/models/category_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../common/widgets/BrandCard/brands_showCase.dart';
@@ -15,7 +16,7 @@ class CategoryBrands extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final controller = Get.put(BrandController());
-    return FutureBuilder(future: controller.getBrandsForCategory(category.id)
+    return FutureBuilder(future: controller.getBrandsForCategory('1')
         , builder: (context,snapshot){
 
       if(snapshot.connectionState == ConnectionState.waiting){
@@ -23,13 +24,18 @@ class CategoryBrands extends StatelessWidget {
       }
 
       if(snapshot.hasError){
+        if(kDebugMode) print("Something went wrong v11111111")     ;
+
         return Center(child: Text("Something went wrong"));
       }
 
-      if(snapshot.data == null || snapshot.data!.isEmpty){
+      if(snapshot.data == null || snapshot.data!.isEmpty ){
         return Center(child: Text("No brands found"));
       }
       List<BrandModel> brands = snapshot.data!;
+      if(brands.isEmpty){
+        return Center(child: Text("No brands found"));
+      }
       return ListView.builder(
         itemCount: brands.length,
           shrinkWrap: true,
@@ -46,6 +52,7 @@ class CategoryBrands extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
           if(snapshot.hasError){
+           if(kDebugMode) print("products length iserrrrrrrrrrre")     ;
             return Center(child: Text("Something went wrong"));
           }
 
@@ -60,10 +67,9 @@ class CategoryBrands extends StatelessWidget {
           }
 
 
-          return TBrandShowCase(
-            images:products.map((e) => e.thumbnail).toList()
-            ,
-          );
+          return  Center(child: Text("products found"));
+
+
         });
       });
     });
