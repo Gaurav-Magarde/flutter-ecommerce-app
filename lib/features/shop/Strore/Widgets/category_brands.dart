@@ -1,7 +1,9 @@
+import 'package:clone_shopping/common/widgets/products/product_card/product_cart_horizontal.dart';
 import 'package:clone_shopping/features/shop/models/category_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../common/widgets/BrandCard/BrandCard.dart';
 import '../../../../common/widgets/BrandCard/brands_showCase.dart';
 import '../../controllers/brand_controller.dart';
 import '../../models/brand_model.dart';
@@ -14,8 +16,8 @@ class CategoryBrands extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final controller = Get.put(BrandController());
+
     return FutureBuilder(future: controller.getBrandsForCategory('1')
         , builder: (context,snapshot){
 
@@ -24,9 +26,7 @@ class CategoryBrands extends StatelessWidget {
       }
 
       if(snapshot.hasError){
-        if(kDebugMode) print("Something went wrong v11111111")     ;
-
-        return Center(child: Text("Something went wrong"));
+        return Center(child: Text("something  went wrong"));
       }
 
       if(snapshot.data == null || snapshot.data!.isEmpty ){
@@ -36,42 +36,49 @@ class CategoryBrands extends StatelessWidget {
       if(brands.isEmpty){
         return Center(child: Text("No brands found"));
       }
-      return ListView.builder(
-        itemCount: brands.length,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context,index){
 
-        final brand = brands[index];
+      // if(kDebugMode) print("brands length is ${brands.length}");
+      return SizedBox(
+        child: ListView.builder(
+          itemCount: brands.length,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context,index){
 
-        return FutureBuilder(future: controller.getProductsForBrand(brandId: brand.id)
-            , builder: (context,snapshot){
+          final brand = brands[index];
 
-          if(snapshot.connectionState == ConnectionState.waiting){
-            return Center(child: CircularProgressIndicator());
-          }
-          if(snapshot.hasError){
-           if(kDebugMode) print("products length iserrrrrrrrrrre")     ;
-            return Center(child: Text("Something went wrong"));
-          }
+          return Column(
+            children: [
+              FutureBuilder(future: controller.getProductsForBrand(brandId: brand.id)
+                  , builder: (context,snapshot){
 
-          if(snapshot.data == null){
-            return Center(child: Text("No products found"));
-          }
+                if(snapshot.connectionState == ConnectionState.waiting){
+                  return Center(child: CircularProgressIndicator());
+                }
+                if(snapshot.hasError){
+                  return Center(child: Text("Something went wrong"));
+                }
 
-          List<ProductModel> products = snapshot.data!;
+                if(snapshot.data == null){
+                  return Center(child: Text("No products found"));
+                }
 
-          if(products.isEmpty){
-            return Center(child: Text("No products found"));
-          }
+                List<ProductModel> products = snapshot.data!;
+
+                if(products.isEmpty){
+                  return Center(child: Text("No products found"));
+                }
+
+                return  TBrandShowCase(brand: brand,images: products.map((e) => e.productVariations[0].image).toList());
 
 
-          return  Center(child: Text("products found"));
 
-
-        });
-      });
+              }),
+            ],
+          );
+        }),
+      );
     });
   }
 }

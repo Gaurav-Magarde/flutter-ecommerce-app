@@ -50,6 +50,7 @@ class BrandRepository extends GetxController {
           .get();
       // querySnapshot.docs.map((e) => print(e.data()['brandId']));
       List<String> brandIds = querySnapshot.docs.map((e) => e.data()['brandId'] as String).toList();
+      if(kDebugMode) print(brandIds);
       if(brandIds.isEmpty) return [];
       final brandQuery = await FirebaseFirestore.instance.collection("Brands").where(FieldPath.documentId, whereIn: brandIds).limit(2).get();
       final result = brandQuery.docs.map((e) => BrandModel.fromSnapshot(e)).toList();
@@ -74,7 +75,7 @@ class BrandRepository extends GetxController {
     try {
       final querySnapshot = await FirebaseFirestore.instance
           .collection("Products")
-          .where("brandId", isEqualTo: brandId).limit(limit)
+          .where("Brand.Id", isEqualTo: brandId).limit(limit)
           .get();
       final result = querySnapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
       return result;

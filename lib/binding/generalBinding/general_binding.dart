@@ -5,6 +5,7 @@ import 'package:clone_shopping/utils/helpers/network_manager.dart';
 import 'package:get/get.dart';
 
 import '../../data/repositries/BannerRepository/banner_repository.dart';
+import '../../features/shop/Repositries/brand_repository.dart';
 
 class GeneralBinding extends Bindings{
   @override
@@ -15,6 +16,7 @@ class GeneralBinding extends Bindings{
 
     Get.lazyPut(()=>NetworkManager());
     Get.lazyPut(()=>BannerRepository());
+    Get.lazyPut(()=>BrandRepository());
 
 
   }

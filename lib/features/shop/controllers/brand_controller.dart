@@ -49,22 +49,23 @@ class BrandController extends GetxController{
 
   Future<List<BrandModel>> getBrandsForCategory(String categoryId) async {
     try {
-      isLoading.value = true;
-      final controller =  Get.put(BrandRepository());
+      final controller = Get.find<BrandRepository>();
+      // isLoading.value = true;
+      if(kDebugMode) print("called");
       final list = await controller.fetchBrandsForCategory(categoryId);//here error The method 'fetchAllBrands' isn't defined for the type 'Function'. (Documentation)();
       return list;
     } catch(e) {
       TLoaders.errorSnackBar(title: "oh snap",message: e.toString());
       return [];
     }finally{
-      isLoading.value = false;
+      // isLoading.value = false;
     }
   }
 
   Future<List<ProductModel>> getProductsForBrand({int limit = 2,required String brandId,}) async {
     try {
-      isLoading.value = true;
-      final controller = Get.put(BrandRepository());
+      final controller = Get.find<BrandRepository>();
+      // isLoading.value = true;
       final list = await controller.fetchProductsForBrand(brandId: brandId,limit:  limit );
       return list;
     }catch(e){
@@ -73,7 +74,7 @@ class BrandController extends GetxController{
       });
       return [];
     }finally{
-      isLoading.value = false;
+      // isLoading.value = false;
     }
   }
 }
