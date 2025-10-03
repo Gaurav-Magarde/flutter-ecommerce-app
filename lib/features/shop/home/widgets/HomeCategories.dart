@@ -1,10 +1,8 @@
 import 'package:clone_shopping/common/widgets/shimmer/category_shimmer.dart';
 import 'package:clone_shopping/features/shop/controllers/categoryController/category_controller.dart';
 import 'package:clone_shopping/features/shop/subProducts/sub_products_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../../../common/widgets/container/VerticalImageText.dart';
 
@@ -54,7 +52,7 @@ class HomeCategories extends StatelessWidget {
             return VerticalImageText(
               image: category.image,
               title: category.name,
-              onTap: () => Get.to(const SubProductsScreen()),
+              onTap: () => Get.to(SubProductsScreen(category: category,)),
             );
           },
         ),

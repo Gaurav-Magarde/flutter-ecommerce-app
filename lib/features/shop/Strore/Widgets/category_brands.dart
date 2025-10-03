@@ -1,9 +1,6 @@
-import 'package:clone_shopping/common/widgets/products/product_card/product_cart_horizontal.dart';
 import 'package:clone_shopping/features/shop/models/category_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../common/widgets/BrandCard/BrandCard.dart';
 import '../../../../common/widgets/BrandCard/brands_showCase.dart';
 import '../../controllers/brand_controller.dart';
 import '../../models/brand_model.dart';
@@ -18,7 +15,7 @@ class CategoryBrands extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(BrandController());
 
-    return FutureBuilder(future: controller.getBrandsForCategory('1')
+    return FutureBuilder(future: controller.getBrandsForCategory(category.id)
         , builder: (context,snapshot){
 
       if(snapshot.connectionState == ConnectionState.waiting){
@@ -69,10 +66,9 @@ class CategoryBrands extends StatelessWidget {
                 if(products.isEmpty){
                   return Center(child: Text("No products found"));
                 }
+                List<String> images = products.map((e) => e.thumbnail).toList();
 
-                return  TBrandShowCase(brand: brand,images: products.map((e) => e.productVariations[0].image).toList());
-
-
+                return  TBrandShowCase(brand: brand,images: images);
 
               }),
             ],

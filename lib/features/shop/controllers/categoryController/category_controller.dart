@@ -3,37 +3,54 @@ import 'package:clone_shopping/features/shop/models/category_model.dart';
 import 'package:clone_shopping/utils/popups/loaders.dart';
 import 'package:get/get.dart';
 
-class CategoryController extends GetxController{
-static CategoryController get instance => Get.find();
+class CategoryController extends GetxController {
+  static CategoryController get instance => Get.find();
 
-final _categoryRepository =  Get.put(CategoryRepository());
-final isLoading = false.obs;
-RxList<CategoryModel> allCategory= <CategoryModel>[].obs;
-RxList<CategoryModel> featuredCategory = <CategoryModel>[].obs;
+  final _categoryRepository = Get.put(CategoryRepository());
+  final isLoading = false.obs;
+  RxList<CategoryModel> allCategory = <CategoryModel>[].obs;
+  RxList<CategoryModel> featuredCategory = <CategoryModel>[].obs;
 
-@override
+  @override
   void onInit() {
-  fetchAllCategories();
-  super.onInit();
-
+    fetchAllCategories();
+    super.onInit();
   }
 
   Future<void> fetchAllCategories() async {
-  try {
+    try {
+      isLoading.value = true;
 
-  isLoading.value = true;
+      final categories = await CategoryRepository.instance.getAllCategories();
 
-  final categories = await CategoryRepository.instance.getAllCategories();
+      allCategory.assignAll(categories);
 
-  allCategory.assignAll(categories);
+      featuredCategory.assignAll(
+        allCategory
+            .where((items) => items.featured && items.parentId.isEmpty)
+            .take(8)
+            .toList(),
+      );
 
-  featuredCategory.assignAll(allCategory.where((items)=> items.featured && items.parentId.isEmpty).take(8).toList());
-
-  isLoading.value = false;
-
-  }catch(e){
-    TLoaders.errorSnackBar(title: "ohSnap",message: e.toString());
-    isLoading.value = false;
+      isLoading.value = false;
+    } catch (e) {
+      TLoaders.errorSnackBar(title: "ohSnap", message: e.toString());
+      isLoading.value = false;
+    }
   }
+
+  Future<List<CategoryModel>> findSubCategories({
+    required String categoryId,
+  }) async {
+    try {
+      Get.put(CategoryRepository());
+      final List<CategoryModel> allSubCategories = await CategoryRepository
+          .instance
+          .getAllSubCategories(categoryId: categoryId);
+      return allSubCategories;
+    } catch (e) {
+      TLoaders.errorSnackBar(title: "oh snap!", message: e.toString());
+      return [];
+    }
   }
 }

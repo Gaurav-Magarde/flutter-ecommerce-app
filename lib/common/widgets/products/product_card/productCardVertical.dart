@@ -78,24 +78,40 @@ class ProductCartVertical extends StatelessWidget {
                   Positioned(
                     top: 8,
                     left: 8,
-                    child: Icon(Icons.percent, size: 12, color: TColors.dark),
+                    child: Container(
+                      height: 18,
+                      width: 28,
+                      decoration: BoxDecoration(
+                          color: Colors.yellow,
+                          borderRadius: BorderRadius.circular(TSizes.sm)
+                      ),
+                      child: Center(
+                        child: Text(
+                          "$salePercentage %",
+                          style: Theme.of(
+                            context,
+                          ).textTheme.labelLarge!.apply(color: Colors.black),
+                        ),
+                      ),
+                    ),
                   ),
 
                 // -- Favourite Icon --
                 Positioned(
                   top: 0,
                   right: 0,
-                  child: Obx((){
+                  child: Obx(() {
                     return IconButton(
-                        onPressed: onFavouriteTap,
-                        icon: Icon(
-                          Iconsax.heart5,
-                          color: WishListController.instance.isWishListed(productId)
-                              ? Colors.red
-                              : TColors.white,
-                        ) //Favorite Icon
+                      onPressed: onFavouriteTap,
+                      icon: Icon(
+                        Iconsax.heart5,
+                        color:
+                            WishListController.instance.isWishListed(productId)
+                            ? Colors.red
+                            : TColors.white,
+                      ), //Favorite Icon
                     );
-                  })
+                  }),
                 ),
               ],
             ),

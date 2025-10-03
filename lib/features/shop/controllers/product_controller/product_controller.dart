@@ -89,5 +89,16 @@ class ProductController extends GetxController{
      }
   }
 
+  Future<List<ProductModel>> getProductsForCategory(String categoryId,{int limit = 2}) async {
+     try{
+       // isLoading.value = true;
+       final products = await _productRepository.getProductsForCategory(categoryId,limit: limit);
+       // isLoading.value = false;
+       return products;
 
+     }catch(e){
+       TLoaders.errorSnackBar(title: "ohSnap on fetching products",message: e.toString());
+       return [];
+     }
+  }
 }

@@ -19,7 +19,7 @@ class AllProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(AllProductsController());
     return Scaffold(
-      appBar: TAppBar(title: Text("Popular Products"), showBackArrow: true),
+      appBar: TAppBar(title: Text(title), showBackArrow: true),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(TSizes.defaultSpace),
