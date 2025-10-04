@@ -16,6 +16,7 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 import '../../controllers/product_controller/product_controller.dart';
 import '../../controllers/product_controller/variation_controller.dart';
+import 'full_screen_image.dart';
 
 class ProductImageSlider extends StatelessWidget {
   const ProductImageSlider({super.key, required this.product});
@@ -37,21 +38,30 @@ class ProductImageSlider extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    SizedBox(
-                      height: 400,
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.all(
-                          TSizes.productImageRadius * 2,
-                        ),
-                        child: Center(
-                          child: Obx(
-                            () => CachedNetworkImage(
-                              fit: BoxFit.fitWidth,
-                              imageUrl: variationController
-                                  .selectedVariation
-                                  .value
-                                  .image,
+                    InkWell(
+                      onTap: () {
+                          Get.to(()=>FullScreenImage(image :variationController
+                              .selectedVariation
+                              .value
+                              .image));
+          },
+
+                      child: SizedBox(
+                        height: 400,
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.all(
+                            TSizes.productImageRadius * 2,
+                          ),
+                          child: Center(
+                            child: Obx(
+                              () => CachedNetworkImage(
+                                fit: BoxFit.fitWidth,
+                                imageUrl: variationController
+                                    .selectedVariation
+                                    .value
+                                    .image,
+                              ),
                             ),
                           ),
                         ),

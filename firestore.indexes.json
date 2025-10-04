@@ -1,0 +1,43 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "Products",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "Brand.Name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "NoOfProductVariations",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    },
+    {
+      "collectionGroup": "Products",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "IsFeatured",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "NoOfProductVariations",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "__name__",
+          "order": "ASCENDING"
+        }
+      ],
+      "density": "SPARSE_ALL"
+    }
+  ],
+  "fieldOverrides": []
+}

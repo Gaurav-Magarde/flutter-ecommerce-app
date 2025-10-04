@@ -1,4 +1,3 @@
-import 'package:clone_shopping/features/shop/models/category_model.dart';
 import 'package:clone_shopping/utils/constants/colors.dart';
 import 'package:clone_shopping/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ import '../../../common/widgets/texts/SectionHeading.dart';
 import '../../../utils/constants/sizes.dart';
 import '../Brands/Widgets/brand_product.dart';
 import '../Brands/brands.dart';
+import '../Cart/cart_screen.dart';
 import '../controllers/brand_controller.dart';
 import '../controllers/categoryController/category_controller.dart';
 import '../home/widgets/GridView.dart';
@@ -31,11 +31,11 @@ class StoreScreen extends StatelessWidget {
       final List<Widget> widgets = categoryController.allCategory.map((e)=>CategoryTab(category: e)).toList();
 
     return DefaultTabController(
-      length: 5,
+      length: tabs.length,
       child: Scaffold(
         appBar: TAppBar(
           title: Text("Store"),
-          actions: [CartCounterWidget(onPressed: () {}, color: Colors.black)],
+          actions: [CartCounterWidget(onPressed: () { Get.to(()=> CartScreen());}, color: Colors.black)],
         ),
         body: NestedScrollView(
           // physics: const NeverScrollableScrollPhysics(),

@@ -1,15 +1,11 @@
 import 'package:clone_shopping/common/widgets/appbar/customAppBar.dart';
-import 'package:clone_shopping/common/widgets/images/RoundedImage.dart';
 import 'package:clone_shopping/common/widgets/texts/SectionHeading.dart';
 import 'package:clone_shopping/features/shop/controllers/categoryController/category_controller.dart';
 import 'package:clone_shopping/features/shop/controllers/product_controller/product_controller.dart';
 import 'package:clone_shopping/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../../common/widgets/products/product_card/product_cart_horizontal.dart';
-import '../../../utils/constants/image_strings.dart';
 import '../allProducts/all_products.dart';
 import '../models/category_model.dart';
 
@@ -26,12 +22,12 @@ class SubProductsScreen extends StatelessWidget {
           padding: EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             children: [
-              RoundedImage(
-                imageURL: TImages.banner4,
-                width: double.infinity,
-                applyImageRadius: true,
-              ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              // RoundedImage(
+              //   imageURL: TImages.banner4,
+              //   width: double.infinity,
+              //   applyImageRadius: true,
+              // ),
+              // const SizedBox(height: TSizes.spaceBtwSections),
 
               FutureBuilder(
                 future: CategoryController.instance.findSubCategories(

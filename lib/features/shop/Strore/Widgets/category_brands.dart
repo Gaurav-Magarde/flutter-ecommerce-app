@@ -1,7 +1,9 @@
+import 'package:clone_shopping/common/widgets/shimmer/address_shimmer.dart';
 import 'package:clone_shopping/features/shop/models/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../common/widgets/BrandCard/brands_showCase.dart';
+import '../../../../common/widgets/shimmer/CategoryProductShimmer.dart';
 import '../../controllers/brand_controller.dart';
 import '../../models/brand_model.dart';
 import '../../models/product_model.dart';
@@ -19,7 +21,7 @@ class CategoryBrands extends StatelessWidget {
         , builder: (context,snapshot){
 
       if(snapshot.connectionState == ConnectionState.waiting){
-        return Center(child: CircularProgressIndicator());
+        return CategoryProductShimmer();
       }
 
       if(snapshot.hasError){

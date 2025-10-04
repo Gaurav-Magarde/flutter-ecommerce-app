@@ -2,8 +2,13 @@ import 'package:clone_shopping/utils/popups/full_screen_loader.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../../../../utils/exceptions/firebase_auth_exceptions.dart';
+import '../../../../../utils/exceptions/firebase_exceptions.dart';
+import '../../../../../utils/exceptions/format_exceptions.dart';
+import '../../../../../utils/exceptions/platform_exceptions.dart';
 import '../Models/address_model.dart';
 
 class AddressRepository extends GetxController {
@@ -17,16 +22,32 @@ class AddressRepository extends GetxController {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('Addresses');
       final snapshot = await path.get();
-      if(kDebugMode) print("not passed");
 
       if(snapshot.docs.isEmpty) return [];
-      if(kDebugMode) print("here passed");
       final list = snapshot.docs
           .map((e) => AddressModel.fromSnapshot(e))
           .toList();
       return list;
-    } catch (e) {
-      rethrow;
+    } on FirebaseAuthException catch (e) {
+      // You can handle specific error codes here if you want.
+      // For example: if (e.code == 'weak-password') { ... }
+      throw TFirebaseAuthException(e.code).message;
+    }
+    // Catch other general Firebase-related errors.
+    on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    }
+    // Catch errors related to incorrect data format.
+    on FormatException catch (_) {
+      throw const TFormatException().message;
+    }
+    // Catch errors from the underlying native platform (Android/iOS)
+    on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    }
+    // Catch any other unexpected errors.
+    catch (e) {
+      throw 'Something went wrong. Please try again';
     }
   }
 
@@ -44,8 +65,26 @@ class AddressRepository extends GetxController {
       TFullScreenLoader.stopLoading();
 
 
-    } catch (e) {
-      rethrow;
+    }  on FirebaseAuthException catch (e) {
+      // You can handle specific error codes here if you want.
+      // For example: if (e.code == 'weak-password') { ... }
+      throw TFirebaseAuthException(e.code).message;
+    }
+    // Catch other general Firebase-related errors.
+    on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    }
+    // Catch errors related to incorrect data format.
+    on FormatException catch (_) {
+      throw const TFormatException().message;
+    }
+    // Catch errors from the underlying native platform (Android/iOS)
+    on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    }
+    // Catch any other unexpected errors.
+    catch (e) {
+      throw 'Something went wrong. Please try again';
     }
   }
 
@@ -57,8 +96,26 @@ class AddressRepository extends GetxController {
           FirebaseAuth.instance.currentUser!.uid);
       await path.update({"DefaultAddress": address.toJson()});
       TFullScreenLoader.stopLoading();
-    }catch(e){
-      rethrow;
+    } on FirebaseAuthException catch (e) {
+      // You can handle specific error codes here if you want.
+      // For example: if (e.code == 'weak-password') { ... }
+      throw TFirebaseAuthException(e.code).message;
+    }
+    // Catch other general Firebase-related errors.
+    on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    }
+    // Catch errors related to incorrect data format.
+    on FormatException catch (_) {
+      throw const TFormatException().message;
+    }
+    // Catch errors from the underlying native platform (Android/iOS)
+    on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    }
+    // Catch any other unexpected errors.
+    catch (e) {
+      throw 'Something went wrong. Please try again';
     }
   }
 
@@ -74,8 +131,26 @@ class AddressRepository extends GetxController {
       return AddressModel.fromJson(data['DefaultAddress']);
 
     }
-    catch(e){
-      rethrow;
+    on FirebaseAuthException catch (e) {
+      // You can handle specific error codes here if you want.
+      // For example: if (e.code == 'weak-password') { ... }
+      throw TFirebaseAuthException(e.code).message;
+    }
+    // Catch other general Firebase-related errors.
+    on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    }
+    // Catch errors related to incorrect data format.
+    on FormatException catch (_) {
+      throw const TFormatException().message;
+    }
+    // Catch errors from the underlying native platform (Android/iOS)
+    on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    }
+    // Catch any other unexpected errors.
+    catch (e) {
+      throw 'Something went wrong. Please try again';
     }
   }
 
@@ -90,8 +165,26 @@ class AddressRepository extends GetxController {
       TFullScreenLoader.stopLoading();
 
 
-    } catch (e) {
-      rethrow;
+    }  on FirebaseAuthException catch (e) {
+      // You can handle specific error codes here if you want.
+      // For example: if (e.code == 'weak-password') { ... }
+      throw TFirebaseAuthException(e.code).message;
+    }
+    // Catch other general Firebase-related errors.
+    on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    }
+    // Catch errors related to incorrect data format.
+    on FormatException catch (_) {
+      throw const TFormatException().message;
+    }
+    // Catch errors from the underlying native platform (Android/iOS)
+    on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    }
+    // Catch any other unexpected errors.
+    catch (e) {
+      throw 'Something went wrong. Please try again';
     }
   }
 
@@ -100,8 +193,26 @@ class AddressRepository extends GetxController {
       final path = FirebaseFirestore.instance.collection('users').doc(
           FirebaseAuth.instance.currentUser!.uid).collection('Addresses');
       await path.doc(id).delete();
-    }catch(e){
-      rethrow;
+    } on FirebaseAuthException catch (e) {
+      // You can handle specific error codes here if you want.
+      // For example: if (e.code == 'weak-password') { ... }
+      throw TFirebaseAuthException(e.code).message;
+    }
+    // Catch other general Firebase-related errors.
+    on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    }
+    // Catch errors related to incorrect data format.
+    on FormatException catch (_) {
+      throw const TFormatException().message;
+    }
+    // Catch errors from the underlying native platform (Android/iOS)
+    on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    }
+    // Catch any other unexpected errors.
+    catch (e) {
+      throw 'Something went wrong. Please try again';
     }
   }
 

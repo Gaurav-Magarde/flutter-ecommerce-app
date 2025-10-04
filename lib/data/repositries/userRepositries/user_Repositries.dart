@@ -24,15 +24,15 @@ class UserRepository extends GetxController {
     try {
       await _db.collection("users").doc(user.id).set(user.toJson());
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code);
+      throw TFirebaseException(e.code).message;
     }
     // Catch errors related to incorrect data format.
     on FormatException catch (_) {
-      throw const TFormatException();
+      throw const TFormatException().message;
     }
     // Catch errors from the underlying native platform (Android/iOS)
     on PlatformException catch (e) {
-      throw TPlatformException(e.code);
+      throw TPlatformException(e.code).message;
     }
     // Catch any other unexpected errors.
     catch (e) {
@@ -57,15 +57,15 @@ class UserRepository extends GetxController {
       return userM;
 
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code);
+      throw TFirebaseException(e.code).message;
     }
     // Catch errors related to incorrect data format.
     on FormatException catch (_) {
-      throw const TFormatException();
+      throw const TFormatException().message;
     }
     // Catch errors from the underlying native platform (Android/iOS)
     on PlatformException catch (e) {
-      throw TPlatformException(e.code);
+      throw TPlatformException(e.code).message;
     }
     // Catch any other unexpected errors.
     catch (e) {
@@ -78,15 +78,15 @@ class UserRepository extends GetxController {
     try {
       await _db.collection("users").doc(user.id).update(user.toJson());
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code);
+      throw TFirebaseException(e.code).message;
     }
     // Catch errors related to incorrect data format.
     on FormatException catch (_) {
-      throw const TFormatException();
+      throw const TFormatException().message;
     }
     // Catch errors from the underlying native platform (Android/iOS)
     on PlatformException catch (e) {
-      throw TPlatformException(e.code);
+      throw TPlatformException(e.code).message;
     }
     // Catch any other unexpected errors.
     catch (e) {
@@ -102,15 +102,15 @@ class UserRepository extends GetxController {
           .doc(AuthenticationRepository.instance.user!.uid)
           .update(json);
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code);
+      throw TFirebaseException(e.code).message;
     }
     // Catch errors related to incorrect data format.
     on FormatException catch (_) {
-      throw const TFormatException();
+      throw const TFormatException().message;
     }
     // Catch errors from the underlying native platform (Android/iOS)
     on PlatformException catch (e) {
-      throw TPlatformException(e.code);
+      throw TPlatformException(e.code).message;
     }
     // Catch any other unexpected errors.
     catch (e) {
@@ -126,15 +126,15 @@ class UserRepository extends GetxController {
           .doc(AuthenticationRepository.instance.user?.uid)
           .delete();
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code);
+      throw TFirebaseException(e.code).message;
     }
     // Catch errors related to incorrect data format.
     on FormatException catch (_) {
-      throw const TFormatException();
+      throw const TFormatException().message;
     }
     // Catch errors from the underlying native platform (Android/iOS)
     on PlatformException catch (e) {
-      throw TPlatformException(e.code);
+      throw TPlatformException(e.code).message;
     }
     // Catch any other unexpected errors.
     catch (e) {
@@ -154,15 +154,15 @@ class UserRepository extends GetxController {
       await ref.putFile(File(image.path));
       return await ref.getDownloadURL();
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code);
+      throw TFirebaseException(e.code).message;
     }
     // Catch errors related to incorrect data format.
     on FormatException catch (_) {
-      throw const TFormatException();
+      throw const TFormatException().message;
     }
     // Catch errors from the underlying native platform (Android/iOS)
     on PlatformException catch (e) {
-      throw TPlatformException(e.code);
+      throw TPlatformException(e.code).message;
     }
     // Catch any other unexpected errors.
     catch (e) {

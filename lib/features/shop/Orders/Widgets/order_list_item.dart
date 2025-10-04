@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../common/widgets/shimmer/order_shimmer.dart';
 import '../OrderController/order_controller.dart';
 import 'order_status_helper.dart';
 
@@ -36,7 +37,7 @@ class OrderListItem extends StatelessWidget {
         padding: const EdgeInsets.all(TSizes.defaultSpace),
         child: Obx(() {
           if (controller.isLoading.value) {
-            return AddressShimmer();
+            return OrderShimmer();
           }
           if (controller.orders.isEmpty) {
             return Center(child: Text("No Orders Found"));

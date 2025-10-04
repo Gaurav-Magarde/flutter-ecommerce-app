@@ -28,35 +28,37 @@ class UserController extends GetxController{
 
 
   Future<void> saveUserRecord(UserCredential ? userCredential) async {
-    isUserLoading = true.obs;
+    try {
+      isUserLoading = true.obs;
 
-    await fetchUserRecord();
+      await fetchUserRecord();
 
-    if(user.value.id.isEmpty){
-      if (userCredential != null) {
-        final fullName = UserModel.nameParts(
-            userCredential.user!.displayName ?? " ");
-        final userName = UserModel.generateUsername(
-            userCredential.user!.displayName ?? " ");
+      if (user.value.id.isEmpty) {
+        if (userCredential != null) {
+          final fullName = UserModel.nameParts(
+              userCredential.user!.displayName ?? " ");
+          final userName = UserModel.generateUsername(
+              userCredential.user!.displayName ?? " ");
 
-        final user = UserModel(id: userCredential.user!.uid,
-            email: userCredential.user!.email ?? " ",
-            username: userName,
-            firstName: fullName[0],
-            lastName: fullName[1],
-            phoneNumber: userCredential.user!.phoneNumber ?? "",
-            profilePicture: ""
-        );
+          final user = UserModel(id: userCredential.user!.uid,
+              email: userCredential.user!.email ?? " ",
+              username: userName,
+              firstName: fullName[0],
+              lastName: fullName[1],
+              phoneNumber: userCredential.user!.phoneNumber ?? "",
+              profilePicture: ""
+          );
 
-        await UserRepository.instance.saveUserRecord(user);
-      } else {
-        TLoaders.errorSnackBar(title: "ohSnap", message: " user not found");
+          await UserRepository.instance.saveUserRecord(user);
+        } else {
+          TLoaders.errorSnackBar(title: "ohSnap", message: " user not found");
+        }
       }
+
+      isUserLoading = false.obs;
+    }catch(e){
+      TLoaders.errorSnackBar(title: 'oh snap!',message: "User not found");
     }
-
-    isUserLoading = false.obs;
-
-
   }
 
 
@@ -82,7 +84,7 @@ class UserController extends GetxController{
 
     }catch(e){
       user(UserModel.empty());
-      // TLoaders.errorSnackBar(title: "oh Snap",message: "Error Fetching Details");
+      TLoaders.errorSnackBar(title: "oh Snap",message: "Error Fetching Details");
     }
   }
 

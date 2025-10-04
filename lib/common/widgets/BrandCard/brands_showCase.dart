@@ -1,13 +1,8 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:clone_shopping/common/widgets/texts/BrandTitleTextVerified.dart';
 import 'package:clone_shopping/features/shop/Brands/Widgets/brand_product.dart';
-import 'package:clone_shopping/features/shop/Brands/brands.dart';
-import 'package:clone_shopping/utils/constants/enums.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../features/shop/controllers/brand_controller.dart';
@@ -16,7 +11,6 @@ import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../container/RoundedContainer.dart';
-import 'BrandCard.dart';
 
 class TBrandShowCase extends StatelessWidget {
   const TBrandShowCase({
@@ -100,7 +94,7 @@ class TBrandShowCase extends StatelessWidget {
     return Expanded(
       child: TRoundedContainer(
         height: 50,
-        width: 50,
+        width: 70,
         // padding: EdgeInsets.symmetric(vertical: TSizes.md),
         backgroundColor: dark ? TColors.darkGrey : TColors.light,
         margin: const  EdgeInsets.only(right: TSizes.sm),

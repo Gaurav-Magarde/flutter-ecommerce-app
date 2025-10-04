@@ -25,15 +25,15 @@ class BrandRepository extends GetxController {
 
       return result;
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code);
+      throw TFirebaseException(e.code).message;
     }
     // Catch errors related to incorrect data format.
     on FormatException catch (_) {
-      throw const TFormatException();
+      throw const TFormatException().message;
     }
     // Catch errors from the underlying native platform (Android/iOS)
     on PlatformException catch (e) {
-      throw TPlatformException(e.code);
+      throw TPlatformException(e.code).message;
     }
     // Catch any other unexpected errors.
     catch (e) {
@@ -55,17 +55,22 @@ class BrandRepository extends GetxController {
       final brandQuery = await FirebaseFirestore.instance.collection("Brands").where(FieldPath.documentId, whereIn: brandIds).limit(2).get();
       final result = brandQuery.docs.map((e) => BrandModel.fromSnapshot(e)).toList();
       return result;
-    } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code);
-      // Catch errors related to incorrect data format.
-    } on FormatException catch (_) {
-      throw const TFormatException();
-      // Catch errors from the underlying native platform (Android/iOS)
-    } on PlatformException catch (e) {
-      throw TPlatformException(e.code);
-      // Catch any other unexpected errors.
-    } catch (e) {
-      throw 'Something went wrong. Please try again   ..';
+    }
+    // Catch other general Firebase-related errors.
+    on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    }
+    // Catch errors related to incorrect data format.
+    on FormatException catch (_) {
+      throw const TFormatException().message;
+    }
+    // Catch errors from the underlying native platform (Android/iOS)
+    on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    }
+    // Catch any other unexpected errors.
+    catch (e) {
+      throw 'Something went wrong. Please try again';
     }
   }
 
@@ -80,13 +85,13 @@ class BrandRepository extends GetxController {
       final result = querySnapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
       return result;
     } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code);
+      throw TFirebaseException(e.code).message;
       // Catch errors related to incorrect data format.
     } on FormatException catch (_) {
-      throw const TFormatException();
+      throw const TFormatException().message;
       // Catch errors from the underlying native platform (Android/iOS)
     } on PlatformException catch (e) {
-      throw TPlatformException(e.code);
+      throw TPlatformException(e.code).message;
       // Catch any other unexpected errors.
     } catch (e) {
       throw 'Something went wrong. Please try again';

@@ -2,9 +2,11 @@
 
 import 'package:clone_shopping/Routes/app_routes.dart';
 import 'package:clone_shopping/utils/theme/theme.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,6 +27,19 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // Then, inject dependencies. This is cleaner than using .then()
   // Get.put(AuthenticationRepository());
+
+  // if (kDebugMode) {
+  //   try {
+  //     FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+  //     await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  //
+  //     // --- ADD THIS LINE FOR STORAGE ---
+  //     await FirebaseStorage.instance.useStorageEmulator('localhost', 9199);
+  //
+  //   } catch (e) {
+  //     print('Error setting up Firebase Emulators: $e');
+  //   }
+  // }
 
   FirebaseAuth.instance.setLanguageCode('en'); // or 'hi', 'ur', etc.
   // -- ADJUSTMENT 2: Use App Check Debug Provider --

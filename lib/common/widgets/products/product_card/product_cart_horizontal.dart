@@ -2,10 +2,9 @@ import 'package:clone_shopping/common/widgets/container/RoundedContainer.dart';
 import 'package:clone_shopping/common/widgets/images/RoundedImage.dart';
 import 'package:clone_shopping/common/widgets/texts/BrandTitleTextVerified.dart';
 import 'package:clone_shopping/features/%20WishList/Controllers/wishlist_controller.dart';
+import 'package:clone_shopping/features/shop/ProductDeatails/ProductDetails.dart';
 import 'package:clone_shopping/features/shop/home/HomeScreen.dart';
-import 'package:clone_shopping/utils/constants/image_strings.dart';
 import 'package:clone_shopping/utils/helpers/helper_functions.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -29,7 +28,7 @@ class ProductCartHorizontal extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
     return InkWell(
       onTap: (){
-        Get.to(()=>HomeScreen());
+        Get.to(()=>ProductDetails(product: product,));
       },
       child: Container(
         width: 310,
@@ -80,7 +79,7 @@ class ProductCartHorizontal extends StatelessWidget {
                         height: 5,
                         width: 4,
                         child: Obx(() {
-                          final wishLists = WishListController.instance.wishListId;
+                          WishListController.instance.wishListId;
                           bool isWishListed = WishListController.instance
                               .isWishListed(product.id);
 

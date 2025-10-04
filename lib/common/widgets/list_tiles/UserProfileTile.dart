@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -16,10 +15,6 @@ class UserProfileTile extends StatelessWidget {
 
     return Column(
       children: [
-        Obx(() {
-          if(kDebugMode) print("user controller from the setting screen  : ${controller.user.value.email}");
-          return Center();
-    }),
         ListTile(
           leading: Obx(()
             =>  controller.user.value.profilePicture == '' ?

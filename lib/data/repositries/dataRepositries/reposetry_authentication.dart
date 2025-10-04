@@ -32,27 +32,49 @@ class AuthenticationRepository extends GetxController {
 
   ///Show Screen According to user authentication
   screenRedirect({UserCredential? currentUser})  async {
-    final user = currentUser?.user ?? FirebaseAuth.instance.currentUser;
-    this.user = user;
-    if(user != null) {
+    try{
+      final user = currentUser?.user ?? FirebaseAuth.instance.currentUser;
+      this.user = user;
+      if(user != null) {
 
-      if(!Get.isRegistered<UserController>()){
-        Get.put(UserController());
+        if(!Get.isRegistered<UserController>()){
+          Get.put(UserController());
+        }
+
+        await UserController.instance.fetchUserRecord();
+        Get.offAll(
+              () => (user.emailVerified) ? NavigationMenu() : VerifyEmailScreen(email: user.email?? "",),
+        );
+      }else {
+
+        deviceStorage.writeIfNull("IsFirstTime", true);
+        bool isFirstTime = (deviceStorage.read("IsFirstTime") != true);
+        Get.offAll(
+          !isFirstTime
+              ? () => const LoginScreen()
+              : () => onBoardingScreen(),
+        );
       }
-
-      await UserController.instance.fetchUserRecord();
-      Get.offAll(
-            () => (user.emailVerified) ? NavigationMenu() : VerifyEmailScreen(email: user.email?? "",),
-          );
-    }else {
-
-      deviceStorage.writeIfNull("IsFirstTime", true);
-      bool isFirstTime = (deviceStorage.read("IsFirstTime") != true);
-      Get.offAll(
-            !isFirstTime
-                ? () => const LoginScreen()
-                : () => onBoardingScreen(),
-          );
+    } on FirebaseAuthException catch (e) {
+      // You can handle specific error codes here if you want.
+      // For example: if (e.code == 'weak-password') { ... }
+      throw TFirebaseAuthException(e.code).message;
+    }
+    // Catch other general Firebase-related errors.
+    on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    }
+    // Catch errors related to incorrect data format.
+    on FormatException catch (_) {
+      throw const TFormatException().message;
+    }
+    // Catch errors from the underlying native platform (Android/iOS)
+    on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    }
+    // Catch any other unexpected errors.
+    catch (e) {
+      throw 'Something went wrong. Please try again';
     }
   }
 
@@ -180,19 +202,19 @@ class AuthenticationRepository extends GetxController {
     on FirebaseAuthException catch (e) {
       // You can handle specific error codes here if you want.
       // For example: if (e.code == 'weak-password') { ... }
-      throw TFirebaseAuthException(e.code);
+      throw TFirebaseAuthException(e.code).message;
     }
     // Catch other general Firebase-related errors.
     on FirebaseException catch (e) {
-      throw TFirebaseException(e.code);
+      throw TFirebaseException(e.code).message;
     }
     // Catch errors related to incorrect data format.
     on FormatException catch (_) {
-      throw const TFormatException();
+      throw const TFormatException().message;
     }
     // Catch errors from the underlying native platform (Android/iOS)
     on PlatformException catch (e) {
-      throw TPlatformException(e.code);
+      throw TPlatformException(e.code).message;
     }
     // Catch any other unexpected errors.
     catch (e) {
@@ -244,19 +266,19 @@ class AuthenticationRepository extends GetxController {
     on FirebaseAuthException catch (e) {
       // You can handle specific error codes here if you want.
       // For example: if (e.code == 'weak-password') { ... }
-      throw TFirebaseAuthException(e.code);
+      throw TFirebaseAuthException(e.code).message;
     }
     // Catch other general Firebase-related errors.
     on FirebaseException catch (e) {
-      throw TFirebaseException(e.code);
+      throw TFirebaseException(e.code).message;
     }
     // Catch errors related to incorrect data format.
     on FormatException catch (_) {
-      throw const TFormatException();
+      throw const TFormatException().message;
     }
     // Catch errors from the underlying native platform (Android/iOS)
     on PlatformException catch (e) {
-      throw TPlatformException(e.code);
+      throw TPlatformException(e.code).message;
     }
     // Catch any other unexpected errors.
     catch (e) {
